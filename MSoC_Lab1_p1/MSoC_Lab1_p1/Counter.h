@@ -24,6 +24,10 @@ SC_MODULE( Counter ) {
         
         trace_file = sc_create_vcd_trace_file("wave");
         sc_trace(trace_file, v, "value");
+        sc_trace(trace_file, iclk, "clk");
+        sc_trace(trace_file, Reset, "reset");
+        sc_trace(trace_file, Enable, "enablle");
+        sc_trace(trace_file, UpDown, "updown");
     }
     
     ~Counter() {
