@@ -1,31 +1,44 @@
-//BEGIN main.cpp
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//See fifo_fir.h for more information
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#include <iostream>
-using std::cout;
-using std::endl;
 
 #include <systemc.h>
-#include "fifo_fir.h"
+#include "Counter.h"
+#include "Stimulus.h"
+#include "Display.h"
 
-unsigned errors = 0;
-char* simulation_name = "fifo_fir";
+int sc_main( int argc, char** argv ) {
 
-int sc_main(int argc, char* argv[]) {
-    //sc_set_time_resolution(1,SC_PS);
-    //sc_set_default_time_unit(1,SC_NS);
-    fifo_fir sc_fifo_ex_i("sc_fifo_ex_i", "/Users/leehaw/Documents/MSoC_workspace/Lab1/code/Sample_Code/fifo_fir//fifo_fir.cfg");
-    cout << "INFO: Starting "<<simulation_name<<" simulation" << endl;
-    if (errors == 0) sc_start();
-    cout << "INFO: Exiting "<<simulation_name<<" simulation" << endl;
-    cout << "INFO: Simulation " << simulation_name
-        << " " << (errors?"FAILED":"PASSED")
-        << " with " << errors << " errors"
-        << endl;
-    return errors?1:0;
+    /*-	Signal Declaration	-*/
+    sc_time	        SIM_TIME( 500, SC_NS );
+    sc_clock        clk ("clk", 10 );
+    sc_signal<int>	Value;
+    sc_signal<bool>	Enable;
+    sc_signal<bool>	UpDown;
+    sc_signal<bool> Reset;
+    
+    /*-	Instantiation and Net Connection	-*/
+    Counter iCounter( "iCounter" );
+    iCounter.iclk( clk );
+    iCounter.Reset( Reset );
+    iCounter.Enable( Enable );
+    iCounter.UpDown( UpDown );
+    iCounter.Value( Value );
+    
+    Stimulus iStimulus( "iStimulus"	);
+    iStimulus.iclk( clk );
+    iStimulus.Enable( Enable );
+    iStimulus.Reset( Reset );
+    iStimulus.UpDown( UpDown );
+    
+    Display iDisplay( "iDisplay");
+    iDisplay.Value( Value );
+
+    /*-	Run Simulation	-*/
+    sc_start( SIM_TIME );
+
+    /*-	Clean Up	-*/	
+    return 0;
+
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//END $Id: main.cpp,v 1.1 2003/11/24 17:21:26 dcblack Exp $
+
+
