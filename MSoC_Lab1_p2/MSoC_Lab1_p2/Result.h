@@ -20,7 +20,7 @@ SC_MODULE(Result) {
     SC_HAS_PROCESS(Result);
     Result(sc_module_name name);
     
-    void process_thread(void);
+    void results_thread(void);
 };
 
 #endif /* defined(__MSoC_Lab1_p2__Result__) */

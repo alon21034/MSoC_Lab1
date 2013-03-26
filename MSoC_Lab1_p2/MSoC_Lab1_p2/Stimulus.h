@@ -21,7 +21,7 @@ SC_MODULE(Stimulus) {
     SC_HAS_PROCESS(Stimulus);
     Stimulus(sc_module_name name);
     
-    void process_thread(void);
+    void stimulus_thread(void);
 };
 
 #endif /* defined(__MSoC_Lab1_p2__Stimulus__) */

@@ -48,9 +48,7 @@ SC_MODULE(fifo_fir) {
     }//end ~fifo_fir()
 
     // Processes
-    void stimulus_thread(void);
     void sc_fifo_ex_thread(void);
-    void results_thread(void);
     
     sc_trace_file* trace_file;
 };

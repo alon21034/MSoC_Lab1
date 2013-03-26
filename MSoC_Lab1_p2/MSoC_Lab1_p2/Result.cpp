@@ -7,4 +7,21 @@
 //
 
 #include "Result.h"
+#include <iomanip.h>
 
+Result::Result(sc_module_name name)
+    :sc_module(name) {
+    
+}
+
+void Result::results_thread(void) {
+    for(unsigned i=0;;i++) {
+        double data =  orig_in.read();
+        double result =  data_out.read();
+        cout << "DATA: "
+        << "["  << setw(2) << i << "]"
+        << "= " << setw(9) << fixed << setprecision(5) << data
+        << " "  << setw(9) << fixed << setprecision(5) << result
+        << endl;
+    }
+}

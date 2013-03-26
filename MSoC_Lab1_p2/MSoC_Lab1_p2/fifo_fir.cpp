@@ -28,9 +28,7 @@ sc_module(_name),
     data_in(32),
     data_out(32)
 {
-    SC_THREAD(stimulus_thread);
     SC_THREAD(sc_fifo_ex_thread);
-    SC_THREAD(results_thread);
     trace_file = sc_create_vcd_trace_file("wave");
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Read coefficients from configuration file and initialize pipe to zero
@@ -64,18 +62,6 @@ sc_module(_name),
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Processes
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void fifo_fir::stimulus_thread(void) {
-    sc_time DELAY(1,SC_NS);
-    unsigned PTS=25;
-    unsigned DELTA = 2;
-    for (unsigned t=0;t<PTS;t++) {
-        double data = 0.0;
-        if ((t-10) <= DELTA || (10-t) <= DELTA ) data = 1.0; // impulse
-        orig_in.write(data);
-        data_in.write(data);
-        wait(DELAY);
-    }//endfor
-}//end stimulus_thread()
 
 void fifo_fir::sc_fifo_ex_thread(void) {
     for(;;) {
@@ -92,18 +78,6 @@ void fifo_fir::sc_fifo_ex_thread(void) {
         data_out.write(result);
     }//endforever
 }//end sc_fifo_ex_thread()
-
-void fifo_fir::results_thread(void) {
-    for(unsigned i=0;;i++) {
-        double data =  orig_in.read();
-        double result =  data_out.read();
-        cout << "DATA: "
-            << "["  << setw(2) << i << "]" 
-            << "= " << setw(9) << fixed << setprecision(5) << data
-            << " "  << setw(9) << fixed << setprecision(5) << result
-            << endl;
-    }//endforever
-}//end results_thread()
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //END $Id: fifo_fir.cpp,v 1.2 2004/02/02 12:36:18 dcblack Exp $
