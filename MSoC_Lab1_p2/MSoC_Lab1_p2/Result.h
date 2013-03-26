@@ -14,8 +14,9 @@
 
 SC_MODULE(Result) {
     
-    sc_in<double> orig_in;
-    sc_in<double> data_out;
+    sc_in_clk clk;
+    sc_port<sc_fifo_in_if<double> > orig_in;
+    sc_port<sc_fifo_in_if<double> > data_out;
     
     SC_HAS_PROCESS(Result);
     Result(sc_module_name name);

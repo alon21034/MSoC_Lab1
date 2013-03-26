@@ -12,14 +12,14 @@
 Result::Result(sc_module_name name)
     :sc_module(name) {
     
-    SC_METHOD(results_thread);
-    sensitive << orig_in;
+    SC_THREAD(results_thread);
+    sensitive << clk.pos();
 }
 
 void Result::results_thread(void) {
     for(unsigned i=0;;i++) {
-        double data =  orig_in.read();
-        double result =  data_out.read();
+        double data =  orig_in->read();
+        double result =  data_out->read();
         cout << "DATA: "
         << "["  << setw(2) << i << "]"
         << "= " << setw(9) << fixed << setprecision(5) << data

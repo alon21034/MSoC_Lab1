@@ -28,8 +28,8 @@
 
 SC_MODULE(fifo_fir) {
     sc_in_clk clk;
-    sc_in<double> data_in;
-    sc_out<double> data_out;
+    sc_port<sc_fifo_in_if<double> > data_in;
+    sc_port<sc_fifo_out_if<double> > data_out;
     double*     m_pipe;     // data pipe
     double*     m_coeff;    // array of coefficients
     unsigned m_taps;     // number of coefficients

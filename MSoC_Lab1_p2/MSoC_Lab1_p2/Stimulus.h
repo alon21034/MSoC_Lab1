@@ -15,8 +15,8 @@
 SC_MODULE(Stimulus) {
     
     sc_in_clk iclk;
-    sc_out<double> orig_in;
-    sc_out<double> data_in;
+    sc_port<sc_fifo_out_if<double> > orig_in;
+    sc_port<sc_fifo_out_if<double> > data_in;
     
     SC_HAS_PROCESS( Stimulus );
     Stimulus(sc_module_name name);

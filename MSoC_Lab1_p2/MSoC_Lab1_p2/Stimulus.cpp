@@ -23,8 +23,8 @@ void Stimulus::stimulus_thread(void) {
     for (unsigned t=0;t<PTS;t++) {
         double data = 0.0;
         if ((t-10) <= DELTA || (10-t) <= DELTA ) data = 1.0; // impulse
-        orig_in.write(data);
-        data_in.write(data);
+        orig_in->write(data);
+        data_in->write(data);
         wait(DELAY);
     }//endfor
 }//end stimulus_thread()
