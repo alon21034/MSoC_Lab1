@@ -37,7 +37,7 @@ SC_MODULE(fifo_fir) {
     char* m_cfg_filename;
     SC_HAS_PROCESS(fifo_fir);
     // Constructor
-    fifo_fir(sc_module_name _name, char* _cfg_filename="fifo_fir.cfg");
+    fifo_fir(sc_module_name _name, char* _cfg_filename="/Users/leehaw/Documents/MSoC_workspace/Lab1/code/Sample_Code/fifo_fir//fifo_fir.cfg");
     // Destructor
     ~fifo_fir() {
         sc_close_vcd_trace_file(trace_file);

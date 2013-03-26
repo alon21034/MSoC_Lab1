@@ -16,18 +16,22 @@ using std::endl;
 using namespace std;
 
 unsigned errors = 0;
-string simulation_name = "fifo_fir";
+
 
 int sc_main(int argc, char* argv[]) {
     //sc_set_time_resolution(1,SC_PS);
     //sc_set_default_time_unit(1,SC_NS);
-    fifo_fir sc_fifo_ex_i("sc_fifo_ex_i", "/Users/leehaw/Documents/MSoC_workspace/Lab1/code/Sample_Code/fifo_fir//fifo_fir.cfg");
+    
+    string simulation_name = "/Users/leehaw/Documents/MSoC_workspace/Lab1/code/Sample_Code/fifo_fir//fifo_fir.cfg";
+    
+    sc_time SIM_TIME( 500, SC_NS );
     
     sc_clock clk("clk", 10);
     sc_signal<int> orig_in;
     sc_signal<int> data_in;
     sc_signal<int> data_out;
     
+    fifo_fir sc_fifo_ex_i("sc_fifo_ex_i");
     Stimulus iStimulus("iStimulus");
     Result iResult("iResult");
     
@@ -39,7 +43,7 @@ int sc_main(int argc, char* argv[]) {
     iResult.data_out(data_out);
     
     cout << "INFO: Starting "<<simulation_name<<" simulation" << endl;
-    if (errors == 0) sc_start();
+    if (errors == 0) sc_start(SIM_TIME);
     cout << "INFO: Exiting "<<simulation_name<<" simulation" << endl;
     cout << "INFO: Simulation " << simulation_name
         << " " << (errors?"FAILED":"PASSED")
