@@ -23,13 +23,11 @@ fifo_fir::fifo_fir(sc_module_name _name, char* _cfg_filename) :
 sc_module(_name),
     m_cfg_filename(_cfg_filename),
     m_taps(0),
-    m_tap(0),
-    orig_in(32),
-    data_in(32),
-    data_out(32)
+    m_tap(0)
 {
     SC_THREAD(sc_fifo_ex_thread);
-    trace_file = sc_create_vcd_trace_file("wave");
+    dont_initialize();
+    sensitive << data_in;
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Read coefficients from configuration file and initialize pipe to zero
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

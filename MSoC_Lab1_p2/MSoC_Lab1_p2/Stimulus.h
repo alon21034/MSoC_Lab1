@@ -14,11 +14,11 @@
 
 SC_MODULE(Stimulus) {
     
-    sc_in_clk clk;
-    sc_out<int> orig_in;
-    sc_out<int> data_in;
+    sc_in_clk iclk;
+    sc_out<double> orig_in;
+    sc_out<double> data_in;
     
-    SC_HAS_PROCESS(Stimulus);
+    SC_HAS_PROCESS( Stimulus );
     Stimulus(sc_module_name name);
     
     void stimulus_thread(void);

@@ -19,25 +19,26 @@ unsigned errors = 0;
 
 
 int sc_main(int argc, char* argv[]) {
-    //sc_set_time_resolution(1,SC_PS);
-    //sc_set_default_time_unit(1,SC_NS);
-    
     string simulation_name = "/Users/leehaw/Documents/MSoC_workspace/Lab1/code/Sample_Code/fifo_fir//fifo_fir.cfg";
     
     sc_time SIM_TIME( 500, SC_NS );
     
-    sc_clock clk("clk", 10);
-    sc_signal<int> orig_in;
-    sc_signal<int> data_in;
-    sc_signal<int> data_out;
+    sc_clock iclk("clk", 10);
+    sc_signal<double> orig_in;
+    sc_signal<double> data_in;
+    sc_signal<double> data_out;
     
-    fifo_fir sc_fifo_ex_i("sc_fifo_ex_i");
+    fifo_fir sc_fifo_ex("sc_fifo_ex");
     Stimulus iStimulus("iStimulus");
     Result iResult("iResult");
     
-    iStimulus.clk(clk);
+    iStimulus.iclk(iclk);
     iStimulus.orig_in(orig_in);
     iStimulus.data_in(data_in);
+    
+    sc_fifo_ex.clk(iclk);
+    sc_fifo_ex.data_in(data_in);
+    sc_fifo_ex.data_out(data_out);
     
     iResult.orig_in(orig_in);
     iResult.data_out(data_out);

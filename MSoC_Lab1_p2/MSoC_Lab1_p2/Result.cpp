@@ -12,6 +12,8 @@
 Result::Result(sc_module_name name)
     :sc_module(name) {
     
+    SC_METHOD(results_thread);
+    sensitive << orig_in;
 }
 
 void Result::results_thread(void) {

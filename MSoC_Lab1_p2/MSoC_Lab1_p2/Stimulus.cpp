@@ -9,11 +9,14 @@
 #include "Stimulus.h"
 
 Stimulus::Stimulus(sc_module_name name)
-:sc_module(name) {
-    
+    :sc_module(name) {
+        
+    SC_THREAD( stimulus_thread );
+    sensitive << iclk.pos();
 }
 
 void Stimulus::stimulus_thread(void) {
+    cout << "stimulus thread" << endl;
     sc_time DELAY(1,SC_NS);
     unsigned PTS=25;
     unsigned DELTA = 2;

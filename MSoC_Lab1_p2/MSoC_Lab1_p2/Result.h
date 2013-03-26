@@ -14,8 +14,8 @@
 
 SC_MODULE(Result) {
     
-    sc_in<int> orig_in;
-    sc_in<int> data_out;
+    sc_in<double> orig_in;
+    sc_in<double> data_out;
     
     SC_HAS_PROCESS(Result);
     Result(sc_module_name name);

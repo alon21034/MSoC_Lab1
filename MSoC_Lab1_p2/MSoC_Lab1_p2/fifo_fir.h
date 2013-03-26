@@ -27,9 +27,9 @@
 #include <systemc.h>
 
 SC_MODULE(fifo_fir) {
-    sc_fifo<double> orig_in;
-    sc_fifo<double> data_in;
-    sc_fifo<double> data_out;
+    sc_in_clk clk;
+    sc_in<double> data_in;
+    sc_out<double> data_out;
     double*     m_pipe;     // data pipe
     double*     m_coeff;    // array of coefficients
     unsigned m_taps;     // number of coefficients
@@ -40,7 +40,6 @@ SC_MODULE(fifo_fir) {
     fifo_fir(sc_module_name _name, char* _cfg_filename="/Users/leehaw/Documents/MSoC_workspace/Lab1/code/Sample_Code/fifo_fir//fifo_fir.cfg");
     // Destructor
     ~fifo_fir() {
-        sc_close_vcd_trace_file(trace_file);
         if (m_taps) {
             delete[] m_coeff;
             delete[] m_pipe;
@@ -49,8 +48,6 @@ SC_MODULE(fifo_fir) {
 
     // Processes
     void sc_fifo_ex_thread(void);
-    
-    sc_trace_file* trace_file;
 };
 
 #endif
