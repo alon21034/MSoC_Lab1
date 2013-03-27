@@ -13,6 +13,7 @@ Result::Result(sc_module_name name)
     :sc_module(name) {
     
     SC_THREAD(results_thread);
+    dont_initialize();
     sensitive << clk.pos();
 }
 
@@ -21,7 +22,7 @@ void Result::results_thread(void) {
         double data =  orig_in->read();
         double result =  data_out->read();
         cout << "DATA: "
-        << "["  << setw(2) << i << "]"
+        << "["  << setw(2) << sc_time_stamp() << "]"
         << "= " << setw(9) << fixed << setprecision(5) << data
         << " "  << setw(9) << fixed << setprecision(5) << result
         << endl;

@@ -25,7 +25,7 @@ int sc_main(int argc, char* argv[]) {
     
     sc_time SIM_TIME( 600, SC_NS );
     
-    sc_clock iclk("clk", 10);
+    sc_clock iclk("clk", 10, SC_NS);
     sc_fifo<double> orig_in(32);
     sc_fifo<double> data_in(32);
     sc_fifo<double> data_out(32);
@@ -34,7 +34,7 @@ int sc_main(int argc, char* argv[]) {
     Stimulus iStimulus("iStimulus");
     Result iResult("iResult");
     
-    iStimulus.iclk(iclk);
+    iStimulus.clk(iclk);
     iStimulus.orig_in(orig_in);
     iStimulus.data_in(data_in);
     

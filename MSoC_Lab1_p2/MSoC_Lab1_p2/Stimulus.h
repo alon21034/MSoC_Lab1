@@ -14,7 +14,7 @@
 
 SC_MODULE(Stimulus) {
     
-    sc_in_clk iclk;
+    sc_in_clk clk;
     sc_port<sc_fifo_out_if<double> > orig_in;
     sc_port<sc_fifo_out_if<double> > data_in;
     

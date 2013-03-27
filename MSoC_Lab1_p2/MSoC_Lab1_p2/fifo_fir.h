@@ -35,6 +35,8 @@ SC_MODULE(fifo_fir) {
     unsigned m_taps;     // number of coefficients
     unsigned m_tap;      // current tap
     char* m_cfg_filename;
+    
+    double* data;
     SC_HAS_PROCESS(fifo_fir);
     // Constructor
     fifo_fir(sc_module_name _name, char* _cfg_filename="/Users/leehaw/Documents/MSoC_workspace/Lab1/code/Sample_Code/fifo_fir//fifo_fir.cfg");
